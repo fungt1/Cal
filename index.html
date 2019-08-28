@@ -354,7 +354,7 @@ var dayNames = [
 //todays date at the header
 var dateObj = new Date();
 var month = dateObj.getUTCMonth(); //months from 1-12
-var day = dateObj.getUTCDate();
+var day = dateObj.getUTCDate()-1;
 var weekDay = dateObj.getDay() - 1;
 var year = dateObj.getUTCFullYear();
 newDate =  dayNames[weekDay] + " " + monthNames[month] + " " + day + "," + year;
