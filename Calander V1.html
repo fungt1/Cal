@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Page Title</title>
+</head>
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css" rel = "stylesheet">
+<style>
+body {
+background-position: center center;
+	background-repeat:  no-repeat;
+	background-attachment: fixed;
+	background-size:  cover;
+  margin: 50px;
+}
+
+.container {
+
+ position:relative;
+    height:1400px;
+    width:800px;
+    box-shadow: 2px 2px 10px black;
+}
+.jumbotron, .row {
+    position:absolute;
+}
+.jumbrotron {
+    top:0
+}
+.row {
+    bottom:0;
+}
+
+#cbackground {
+   text-shadow: 0px 0px 10px black, 0px 0px 10px black;
+   position: absolute;
+   top: 0;
+   left: 0;
+   right: 0;
+   bottom: 0;
+   background-repeat: no-repeat;
+   background-size: contain;
+   background-image: url("https://wakeupreykjavik.com/wp-content/uploads/2019/03/Iceland-August-Things-to-do.jpg");
+   height: 700px;
+   background-position: center right;
+   background-size: cover;
+
+}
+.c-header {
+   height: 140%;
+   padding: 20px;
+   color: #FFFF;
+   font-family: 'Roboto', sans-serif;
+   font-weight: 300;
+   position: relative;
+}
+
+.fa {
+  font-size: 1.5em;
+}
+table {
+  width: 100%;
+}
+th {
+  text-align: center;
+}
+td {
+  width: 2px;
+  height: 2px; 
+  text-align: center;
+  line-height: 80px !important;
+  font-size: 1.5em;
+}
+td.today {
+  background: #329ab4;
+  color: #FFFFFF;
+  font-weight:700;
+  color:@calendar-standout;
+  font-size:1.5em;
+}
+
+td,
+#year {
+  font-size: 1.5em;
+  font-family: Roboto', sans-serif;
+}
+#month {
+  font-size: 1.5em;
+  font-family: Roboto', sans-serif;
+}
+.hover {
+  background: #eee;
+}
+h5 {
+
+ font-size: 3.5em;
+ font-family: monospace;
+ position: relative;
+ width:95%;
+ top: 35%;
+ text-align:center;
+}
+
+#left {
+   position: absolute;
+   cursor: pointer;
+   left: 0%;
+   top: 35%;
+   color: grey !important;
+}
+
+#right {
+   position: absolute;
+   cursor: pointer;
+   right: 0%;
+   top: 35%;
+   color: grey !important;
+}
+
+#date {
+ font-size: 3.5em;
+height: 10%;
+}
+
+#year {
+
+font-size: 2.5em;
+}
+
+#month {
+  font-size: 2.5em;
+}
+</style>
+<body>
+
+  <div class="container">
+    <div id = "cbackground">
+    <div class="c-header">
+    <h5 id = "date"></h5>
+        <h1 class="text-center"><a id="left" href="#"><i class="fa fa-chevron-left" style = "color:white"> </i></a><span>&nbsp;</span><span id="month" > </span><span>&nbsp;</span><span id="year"> </span><span>&nbsp;</span><a id="right" href="#"><i class="fa fa-chevron-right"style = "color:white"></i></a></h1>
+    </div>
+</div>
+    <div class="row">
+        <div class="col-sm-10 col-sm-offset-1">
+        
+            <table class="table"></table>
+        </div>
+    </div>
+</div>
+
+<script src = "//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script src = "https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.1/moment.min.js"></script>
+<script>
+
+$(document).ready(function() {
+
+  var currentDate = new Date();
+  function generateCalendar(d) {
+   currentDate.getDate();
+    Date.prototype.monthDays = function() {
+      var d = new Date();
+var d = new Date(this.getFullYear(), this.getMonth() + 1, 0);
+  return d.getDate();
+  
+};
+    var details = {
+      totalDays: d.monthDays(),
+      weekDays: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
+      months: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+    };
+    var todaysDate = new Date().getDate();
+    var todaysMonth = new Date().getMonth()+1;
+    var todaysYear = new Date().getFullYear();
+    var start = new Date(d.getFullYear(), d.getMonth()).getDay();
+    var cal = [];
+    var day = 1;
+    for (var i = 0; i <= 6; i++) {
+      cal.push(['<tr>']);
+      for (var j = 0; j < 7; j++) {
+      //todays date function
+      if(day  == todaysDate && currentDate.getMonth()+1 == todaysMonth && currentDate.getFullYear() == todaysYear) {
+      cal[i].push('<td class="today">' + day++ + '</td>');
+      }
+ 
+        if (i == 0) {
+          cal[i].push('<td>' + details.weekDays[j] + '</td>');
+        } else if (day > details.totalDays) {
+          cal[i].push('<td>&nbsp;</td>');
+        } else {
+          if (i == 1 && j < start) {
+            cal[i].push('<td>&nbsp;</td>');
+          } else {
+            cal[i].push('<td class="day">' + day++ + '</td>');
+          }
+        }
+      }
+      cal[i].push('</tr>');
+    }
+    cal = cal.reduce(function(a, b) {
+      return a.concat(b);
+    }, []).join('');
+    $('table').append(cal);
+    $('#month').text(details.months[d.getMonth()]);
+    $('#year').text(d.getFullYear());
+    $('td.day').mouseover(function() {
+      $(this).addClass('hover');
+    }).mouseout(function() {
+      $(this).removeClass('hover');
+    });
+}
+  
+  
+  
+  $('#left').click(function() {
+    $('table').text('');
+    if (currentDate.getMonth() === 0) {
+      currentDate = new Date(currentDate.getFullYear() - 1, 11);
+      generateCalendar(currentDate);
+    } else {
+      currentDate = new Date(currentDate.getFullYear(), currentDate.getMonth() - 1)
+      generateCalendar(currentDate);
+    }
+  var month = new Array();
+  month[0] = "January";
+  month[1] = "February";
+  month[2] = "March";
+  month[3] = "April";
+  month[4] = "May";
+  month[5] = "June";
+  month[6] = "July";
+  month[7] = "August";
+  month[8] = "September";
+  month[9] = "October";
+  month[10] = "November";
+  month[11] = "December";
+  if ( $('#month').text() == month[0]) {
+    document.getElementById("cbackground").style.backgroundImage = "url( https://aahvanadventures.com/wp-content/uploads/2016/10/trekking-in-december-and-january-in-india.jpg";
+    }
+  else if($('#month').text() == month[1]) {
+  	 document.getElementById("cbackground").style.backgroundImage = "url( http://2.bp.blogspot.com/-cNUHvFNAwSo/UvACkomUHEI/AAAAAAAAAkw/66EXjM-wDy8/s1600/february_night_by_pajunen-d5v1g4m.jpg";
+  }
+  else if($('#month').text() == month[2]) {
+  	 document.getElementById("cbackground").style.backgroundImage = "url( https://www.lonelyplanet.com/travel-blog/tip-article/wordpress_uploads/2016/10/Iguazu-falls-86198db70380.jpg";
+   }
+  else if($('#month').text() == month[3]) {
+  	 document.getElementById("cbackground").style.backgroundImage = "url( https://www.lonelyplanet.com/travel-blog/tip-article/wordpress_uploads/2017/01/Lake-District-4f0dfde35fb9.jpg";
+   }
+  else if($('#month').text() == month[4]) {
+  	 document.getElementById("cbackground").style.backgroundImage = "url( https://www.lonelyplanet.com/travel-blog/tip-article/wordpress_uploads/2017/02/Abruzzo-d12849401bf7.jpg";
+   }
+  else if($('#month').text() == month[5]) {
+  	 document.getElementById("cbackground").style.backgroundImage = "url( https://www.thelakedistrict.org/images/blog/summer-sheep-750.jpg";
+   }
+  else if($('#month').text() == month[6]) {
+  	 document.getElementById("cbackground").style.backgroundImage = "url( https://d3n8a8pro7vhmx.cloudfront.net/venturahillsides/pages/1675/attachments/original/1554872106/DHHolmes_170327_7530.jpg?1554872106";
+   }
+  else if($('#month').text() == month[7]) {
+  	 document.getElementById("cbackground").style.backgroundImage = "url( https://wakeupreykjavik.com/wp-content/uploads/2019/03/Iceland-August-Average-Weather.jpg";
+   }
+  else if($('#month').text() == month[8]) {
+  	 document.getElementById("cbackground").style.backgroundImage = "url( https://cooldigital.photography/wp-content/uploads/2014/09/Mayon-Volcano-Albay-in-the-Philippines.jpg";
+   }
+  else if($('#month').text() == month[9]) {
+  	 document.getElementById("cbackground").style.backgroundImage = "url( https://media.holidayme.com/wp-content/uploads/2018/09/03173104/Holidayme_where-to-travel-in-September_Russia_shutterstock_1104499781.jpg";
+   }
+  else if($('#month').text() == month[10]) {
+  	 document.getElementById("cbackground").style.backgroundImage = "url( https://carolbalawyder.files.wordpress.com/2010/11/november-in-montreal-005.jpg";
+   }
+  else if($('#month').text() == month[11]) {
+  	 document.getElementById("cbackground").style.backgroundImage = "url( https://colinbeavan.com/wp-content/uploads/2016/12/winter-sunrise-behind-the-trees-nature-hd-wallpaper-1920x1200-9534edit.png";
+   }
+else  {
+   document.getElementById("cbackground").style.backgroundImage = "url( https://jooinn.com/images/trees-and-grass-field-under-cloudy-sky-during-daytime.jpg";
+    }  
+  });
+  $('#right').click(function() {
+    $('table').html('<tr></tr>');
+    if (currentDate.getMonth() === 11) {
+      currentDate = new Date(currentDate.getFullYear() + 1, 0);
+      generateCalendar(currentDate);
+    } else {
+      currentDate = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1)
+      generateCalendar(currentDate);
+    }
+     var month = new Array();
+  month[0] = "January";
+  month[1] = "February";
+  month[2] = "March";
+  month[3] = "April";
+  month[4] = "May";
+  month[5] = "June";
+  month[6] = "July";
+  month[7] = "August";
+  month[8] = "September";
+  month[9] = "October";
+  month[10] = "November";
+  month[11] = "December";
+  if ( $('#month').text() == month[0]) {
+    document.getElementById("cbackground").style.backgroundImage = "url( https://greatatmosphere.files.wordpress.com/2013/01/88-telatyn-poland-snow-winter-great-atmosphere-mood-relaxing-nature.jpg";
+    }
+  else if($('#month').text() == month[1]) {
+  	 document.getElementById("cbackground").style.backgroundImage = "url( http://2.bp.blogspot.com/-cNUHvFNAwSo/UvACkomUHEI/AAAAAAAAAkw/66EXjM-wDy8/s1600/february_night_by_pajunen-d5v1g4m.jpg";
+  }
+  else if($('#month').text() == month[2]) {
+  	 document.getElementById("cbackground").style.backgroundImage = "url( https://www.lonelyplanet.com/travel-blog/tip-article/wordpress_uploads/2016/10/Iguazu-falls-86198db70380.jpg";
+   }
+  else if($('#month').text() == month[3]) {
+  	 document.getElementById("cbackground").style.backgroundImage = "url( https://www.lonelyplanet.com/travel-blog/tip-article/wordpress_uploads/2017/01/Lake-District-4f0dfde35fb9.jpg";
+   }
+  else if($('#month').text() == month[4]) {
+  	 document.getElementById("cbackground").style.backgroundImage = "url( https://www.lonelyplanet.com/travel-blog/tip-article/wordpress_uploads/2017/02/Abruzzo-d12849401bf7.jpg";
+   }
+  else if($('#month').text() == month[5]) {
+  	 document.getElementById("cbackground").style.backgroundImage = "url( https://www.thelakedistrict.org/images/blog/summer-sheep-750.jpg";
+   }
+  else if($('#month').text() == month[6]) {
+  	 document.getElementById("cbackground").style.backgroundImage = "url( https://d3n8a8pro7vhmx.cloudfront.net/venturahillsides/pages/1675/attachments/original/1554872106/DHHolmes_170327_7530.jpg?1554872106";
+   }
+  else if($('#month').text() == month[7]) {
+  	 document.getElementById("cbackground").style.backgroundImage = "url( https://wakeupreykjavik.com/wp-content/uploads/2019/03/Iceland-August-Average-Weather.jpg";
+   }
+  else if($('#month').text() == month[8]) {
+  	 document.getElementById("cbackground").style.backgroundImage = "url( https://cooldigital.photography/wp-content/uploads/2014/09/Mayon-Volcano-Albay-in-the-Philippines.jpg";
+   }
+  else if($('#month').text() == month[9]) {
+  	 document.getElementById("cbackground").style.backgroundImage = "url( https://media.holidayme.com/wp-content/uploads/2018/09/03173104/Holidayme_where-to-travel-in-September_Russia_shutterstock_1104499781.jpg";
+   }
+  else if($('#month').text() == month[10]) {
+  	 document.getElementById("cbackground").style.backgroundImage = "url( https://carolbalawyder.files.wordpress.com/2010/11/november-in-montreal-005.jpg";
+   }
+  else if($('#month').text() == month[11]) {
+  	 document.getElementById("cbackground").style.backgroundImage = "url( https://colinbeavan.com/wp-content/uploads/2016/12/winter-sunrise-behind-the-trees-nature-hd-wallpaper-1920x1200-9534edit.png";
+   }
+else  {
+   document.getElementById("cbackground").style.backgroundImage = "url( https://jooinn.com/images/trees-and-grass-field-under-cloudy-sky-during-daytime.jpg";
+    }  
+  });
+  generateCalendar(currentDate);
+});
+
+var monthNames = [
+    "January", "February", "March",
+    "April", "May", "June", "July",
+    "August", "September", "October",
+    "November", "December"
+  ];
+
+var dayNames = [
+    "Monday", "Tuesday", "Wednesday",
+    "Thursday", "Friday", "Satruday", "Sunday"
+  ];
+
+//todays date at the header
+var dateObj = new Date();
+var month = dateObj.getUTCMonth(); //months from 1-12
+var day = dateObj.getUTCDate();
+var weekDay = dateObj.getDay() - 1;
+var year = dateObj.getUTCFullYear();
+newDate =  dayNames[weekDay] + " " + monthNames[month] + " " + day + "," + year;
+document.getElementById("date").innerHTML = "Today is " + newDate.toString();
+
+
+
+</script>
+</body>
+</html>
