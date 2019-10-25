@@ -1,13 +1,13 @@
-PURPOSE: Creating a website containing all my projects and about me.
+PURPOSE: Front end project that uses alot javascript techniques to track the current day and provide the current day within the year.
 
-This is my website.Contains a homepage that displays many cool features in terms of javascript. This was my first project and it taught me how to code in html, css and javascript to develop a web page. Contact form does not work. Note some of these features were not done from scratch. There are borrowed extensions and basic codes from others I built off of. The link to my on progress website is
+This is a basic calender website that features changing picutres for each month and the current day. This project taught my how to user jQuery technigues to grab months, days and years from a generated calander. Also introduced me to ajax. Link to calander is below. Note it is not fully complete and there are some minor styling issures
 
-https://fungt1.github.io
+https://fungt1.github.io/Calendar/
 
 Langauges being used: Html,css,javascript
 
-CSS frameworks: bootstrap, slick, font-awsome, google fonts API
+CSS frameworks: bootstrap, font-awsome
 
 Javascript library: jQuery.
 
-Helpful links: https://jquery.com/ jQuery https://developers.google.com/fonts/docs/getting_started google fonts https://getbootstrap.com/ bootstrap extensions https://fontawesome.com/ font awsome https://kenwheeler.github.io/slick/ slick
+Helpful links: https://jquery.com/ jQuery  https://getbootstrap.com/ bootstrap extensions https://fontawesome.com/ font awsome https://kenwheeler.github.io/slick/ slick
