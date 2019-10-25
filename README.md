@@ -1,6 +1,6 @@
 PURPOSE: Front end project that uses alot javascript techniques to track the current day and provide the current day within the year.
 
-This is a basic calender website that features changing picutres for each month and the current day. This project taught my how to user jQuery technigues to grab months, days and years from a generated calander. Also introduced me to ajax. Link to calander is below. Note it is not fully complete and there are some minor styling issures
+This is a basic calender website that features changing picutres for each month and the current day. This project taught my how to user jQuery technigues to grab months, days and years from a generated calander. Also introduced me to ajax. Note it is not fully complete and there are some minor styling issues. Link to the website is below or visit my website at https://fungt1.github.io/#
 
 https://fungt1.github.io/Calendar/
 
